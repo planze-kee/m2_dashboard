@@ -1,8 +1,19 @@
 import { createClient } from '@libsql/client'
-import * as dotenv from 'dotenv'
+import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-dotenv.config({ path: resolve(process.cwd(), '.env.local') })
+// .env.local 파일을 직접 파싱
+const envPath = resolve(process.cwd(), '.env.local')
+const envContent = readFileSync(envPath, 'utf-8')
+for (const line of envContent.split('\n')) {
+  const trimmed = line.trim()
+  if (!trimmed || trimmed.startsWith('#')) continue
+  const idx = trimmed.indexOf('=')
+  if (idx === -1) continue
+  const key = trimmed.slice(0, idx).trim()
+  const value = trimmed.slice(idx + 1).trim()
+  process.env[key] = value
+}
 
 const db = createClient({
   url: process.env.TURSO_DATABASE_URL!,
@@ -12,7 +23,6 @@ const db = createClient({
 async function initDb() {
   console.log('DB 초기화 시작...')
 
-  // 접근 허용 사용자 테이블
   await db.execute(`
     CREATE TABLE IF NOT EXISTS allowed_users (
       id    INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,7 +33,6 @@ async function initDb() {
   `)
   console.log('✓ allowed_users 테이블 생성')
 
-  // M2 데이터 캐시 테이블
   await db.execute(`
     CREATE TABLE IF NOT EXISTS m2_cache (
       id         INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -35,7 +44,6 @@ async function initDb() {
   `)
   console.log('✓ m2_cache 테이블 생성')
 
-  // 초기 허용 사용자 등록
   const seedUsers = [
     { email: 'kts123@kookmin.ac.kr', name: '교수님' },
     { email: 'ummoti94@gmail.com', name: '학생' },
