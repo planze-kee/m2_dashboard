@@ -57,6 +57,18 @@ async function initDb() {
     console.log(`✓ 허용 사용자 등록: ${user.email}`)
   }
 
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS comments (
+      id         INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_email TEXT    NOT NULL,
+      user_name  TEXT    NOT NULL,
+      user_image TEXT,
+      content    TEXT    NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `)
+  console.log('✓ comments 테이블 생성')
+
   console.log('\nDB 초기화 완료!')
   process.exit(0)
 }

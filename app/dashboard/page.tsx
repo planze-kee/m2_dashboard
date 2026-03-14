@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Header from '@/components/Header'
+import Guestbook from '@/components/Guestbook'
 import type { M2DataPoint } from '@/lib/ecos'
 
 const M2Chart = dynamic(() => import('@/components/M2Chart'), { ssr: false })
@@ -201,9 +202,12 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <p className="mt-6 text-xs text-slate-400 text-center">
-          출처: 한국은행 경제통계시스템(ECOS) · 통계표코드: 101Y004 · 항목: M2(광의통화) 잔액
+        <p className="mt-6 mb-8 text-xs text-slate-400 text-center">
+          출처: 한국은행 경제통계시스템(ECOS) · 통계표코드: 161Y011 · 항목: M2(광의통화) 잔액
         </p>
+
+        {/* 방명록 */}
+        <Guestbook />
       </main>
     </div>
   )
