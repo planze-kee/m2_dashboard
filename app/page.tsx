@@ -11,14 +11,9 @@ export default function Home() {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      const isAllowed = (session?.user as { isAllowed?: boolean })?.isAllowed
-      if (isAllowed) {
-        router.replace('/dashboard')
-      } else {
-        router.replace('/unauthorized')
-      }
+      router.replace('/dashboard')
     }
-  }, [status, session, router])
+  }, [status, router])
 
   if (status === 'loading') {
     return (
@@ -62,7 +57,7 @@ export default function Home() {
         </div>
 
         <p className="mt-4 text-xs text-slate-400">
-          접근 허용 목록에 등록된 사용자만 이용 가능합니다.
+          Google 계정으로 로그인하면 누구나 이용 가능합니다.
         </p>
       </div>
     </main>
