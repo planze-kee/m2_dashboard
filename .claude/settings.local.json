@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add -A)",
+      "Bash(git reset HEAD .claude/settings.local.json)",
+      "Bash(git rm --cached .claude/settings.local.json)",
+      "Bash(git restore --staged .claude/settings.local.json)",
+      "Bash(git rm -f --cached .claude/settings.local.json)",
+      "Bash(git commit:*)",
+      "Read(//Users/keeyoungum/.ssh/**)",
+      "Bash(git remote set-url origin git@github.com:planze-kee/m2_dashboard.git)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(git add \"docs/서비스소개.md\")"
+    ]
+  }
+}
