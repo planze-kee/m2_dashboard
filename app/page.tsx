@@ -56,9 +56,10 @@ export default function Home() {
           </button>
         </div>
 
-        <p className="mt-4 text-xs text-slate-400">
-          Google 계정으로 로그인하면 누구나 이용 가능합니다.
-        </p>
+        <div className="mt-4 text-xs text-slate-400 space-y-1">
+          <p>이름 : 엄기영 &nbsp;|&nbsp; 학번 : K2023510</p>
+          <p>Google 계정으로 로그인하면 누구나 이용 가능합니다.</p>
+        </div>
       </div>
     </main>
   )
