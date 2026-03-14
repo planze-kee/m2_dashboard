@@ -34,11 +34,6 @@ export async function GET() {
   if (!session) {
     return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 401 })
   }
-  const isAllowed = (session.user as { isAllowed?: boolean })?.isAllowed
-  if (!isAllowed) {
-    return NextResponse.json({ error: '접근 권한이 없습니다.' }, { status: 403 })
-  }
-
   try {
     // 1. ECOS API에서 최신 데이터 가져오기 (3년치)
     const startYm = monthsAgo(36)
